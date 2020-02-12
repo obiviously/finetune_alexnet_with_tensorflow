@@ -7,9 +7,7 @@
 import tensorflow as tf
 import numpy as np
 
-from tensorflow.contrib.data import Dataset
-from tensorflow.python.framework import dtypes
-from tensorflow.python.framework.ops import convert_to_tensor
+from tensorflow.data import Dataset
 
 IMAGENET_MEAN = tf.constant([123.68, 116.779, 103.939], dtype=tf.float32)
 
@@ -59,8 +57,8 @@ class ImageDataGenerator(object):
             self._shuffle_lists()
 
         # convert lists to TF tensor
-        self.img_paths = convert_to_tensor(self.img_paths, dtype=dtypes.string)
-        self.labels = convert_to_tensor(self.labels, dtype=dtypes.int32)
+        self.img_paths = tf.convert_to_tensor(self.img_paths, dtype=tf.string)
+        self.labels = tf.convert_to_tensor(self.labels, dtype=tf.int32)
 
         # create dataset
         data = Dataset.from_tensor_slices((self.img_paths, self.labels))
